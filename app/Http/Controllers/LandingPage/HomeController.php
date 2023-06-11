@@ -7,5 +7,8 @@ use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
-    //
+    public function beranda()
+    {
+        return view('landing-page.beranda.index');
+    }
 }
