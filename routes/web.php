@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LandingPage\HomeController;
+use App\Http\Controllers\Auth\RazenStyle\LoginController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,3 +29,11 @@ Route::get('/', [HomeController::class, 'beranda'])->name('beranda');
 Route::get('/perusahaan', [HomeController::class, 'perusahaan'])->name('perusahaan');
 Route::get('/produk', [HomeController::class, 'produk'])->name('produk');
 Route::get('/kontak', [HomeController::class, 'kontak'])->name('kontak');
+
+Route::get('/login',[LoginController::class, 'showLoginForm'])->name('razen-style.login');
+Route::post('/login', [LoginController::class, 'login'])->name('razen-style.login.submit');
+Route::get('/logout', [LoginController::class, 'logout'])->name('razen-style.logout');
+
+Route::group(['middleware' => 'auth:razen_style'], function(){
+    @include('razen-style.php');
+});

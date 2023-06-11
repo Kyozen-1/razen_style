@@ -2,7 +2,11 @@
 
 namespace App\Exceptions;
 
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
+
 use Throwable;
 
 class Handler extends ExceptionHandler
@@ -37,5 +41,52 @@ class Handler extends ExceptionHandler
         $this->reportable(function (Throwable $e) {
             //
         });
+    }
+
+    public function report(Throwable $exception)
+    {
+        parent::report($exception);
+    }
+
+    /**
+     * Render an exception into an HTTP response.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  \Throwable  $exception
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @throws \Throwable
+     */
+    public function render($request, Throwable $exception)
+    {
+        if($this->isHttpException($exception)){
+            if (view()->exists('errors.' . $exception->getStatusCode())) {
+                $errors = $exception->getMessage();
+                return response()->view('errors.' . $exception->getStatusCode(), compact('errors'), $exception->getStatusCode());
+            }
+        }
+        return parent::render($request, $exception);
+    }
+
+    protected function unauthenticated($request, AuthenticationException $exception)
+    {
+        if($request->expectsJson())
+        {
+            return response()->json(['error' => 'Unauthenticated.'], 401);
+        }
+
+        $guard = Arr::get($exception->guards(), 0);
+
+        switch($guard)
+        {
+            case 'razen_style':
+                $login = 'razen-style.login';
+                break;
+            default:
+                $login = 'razen-style.login';
+                break;
+        }
+
+        return redirect()->guest(route($login));
     }
 }

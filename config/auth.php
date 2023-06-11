@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'razen_style' => [
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
     ],
 
     /*
