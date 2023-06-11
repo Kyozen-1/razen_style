@@ -25,3 +25,6 @@ use App\Http\Controllers\LandingPage\HomeController;
 Auth::routes(['register' => false, 'login' => false]);
 
 Route::get('/', [HomeController::class, 'beranda'])->name('beranda');
+Route::get('/perusahaan', [HomeController::class, 'perusahaan'])->name('perusahaan');
+Route::get('/produk', [HomeController::class, 'produk'])->name('produk');
+Route::get('/kontak', [HomeController::class, 'kontak'])->name('kontak');
