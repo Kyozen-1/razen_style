@@ -4,7 +4,7 @@
 @section('content')
 
 <!-- HEADING-BANNER START -->
-<div class="heading-banner-area overlay-bg">
+<div class="heading-banner-area overlay-bg" id="heading-banner-area" style="background:rgba(0,0,0,0) url({{asset('hurst/img/bg/1.jpg')}}) no-repeat scroll center center/cover">
     <div class="container">
         <div class="row">
             <div class="col-md-12">

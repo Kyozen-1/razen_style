@@ -121,7 +121,8 @@
                 </li>
                 <li>
                     @if (request()->routeIs('razen-style.landing-page.beranda.index') ||
-                    request()->routeIs('razen-style.landing-page.perusahaan.index'))
+                    request()->routeIs('razen-style.landing-page.perusahaan.index') ||
+                    request()->routeIs('razen-style.landing-page.produk.index'))
                     <a href="#landing_page" class="active">
                     @else
                     <a href="#landing_page">
@@ -146,6 +147,15 @@
                                 <a href="{{ route('razen-style.landing-page.perusahaan.index') }}">
                             @endif
                                 <span class="label">Perusahaan</span>
+                            </a>
+                        </li>
+                        <li>
+                            @if (request()->routeIs('razen-style.landing-page.produk.index'))
+                                <a href="{{ route('razen-style.landing-page.produk.index') }}" class="active">
+                            @else
+                                <a href="{{ route('razen-style.landing-page.produk.index') }}">
+                            @endif
+                                <span class="label">Produk</span>
                             </a>
                         </li>
                     </ul>

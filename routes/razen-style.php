@@ -6,6 +6,8 @@ use App\Http\Controllers\RazenStyle\Admin\BrandController;
 use App\Http\Controllers\RazenStyle\LandingPage\PerusahaanController;
 use App\Http\Controllers\RazenStyle\MasterData\MediaSosialController;
 use App\Http\Controllers\RazenStyle\Admin\TimController;
+use App\Http\Controllers\RazenStyle\LandingPage\ProdukController;
+use App\Http\Controllers\RazenStyle\LandingPage\KontakController;
 
 Route::prefix('razen-style')->group(function(){
     Route::prefix('admin')->group(function(){
@@ -67,6 +69,18 @@ Route::prefix('razen-style')->group(function(){
             Route::post('/store/section-2', [PerusahaanController::class, 'store_section_2'])->name('razen-style.landing-page.perusahaan.store.section-2');
 
             Route::post('/store/section-3', [PerusahaanController::class, 'store_section_3'])->name('razen-style.landing-page.perusahaan.store.section-3');
+        });
+
+        Route::prefix('produk')->group(function(){
+            Route::get('/', [ProdukController::class, 'index'])->name('razen-style.landing-page.produk.index');
+
+            Route::post('/store/section-1', [ProdukController::class, 'store_section_1'])->name('razen-style.landing-page.produk.store.section-1');
+        });
+
+        Route::prefix('kontak')->group(function(){
+            Route::get('/', [KontakController::class, 'index'])->name('razen-style.landing-page.kontak.index');
+
+            Route::post('/store/section-1', [KontakController::class, 'store_section_1'])->name('razen-style.landing-page.kontak.store.section-1');
         });
     });
 
