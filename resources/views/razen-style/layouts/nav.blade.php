@@ -89,7 +89,39 @@
                     </a>
                 </li>
                 <li>
-                    @if (request()->routeIs('razen-style.landing-page.beranda.index'))
+                    @if (request()->routeIs('razen-style.admin.tim.index'))
+                        <a href="{{ route('razen-style.admin.tim.index') }}" class="active">
+                    @else
+                        <a href="{{ route('razen-style.admin.tim.index') }}">
+                    @endif
+                        <i data-acorn-icon="home-garage" class="icon" data-acorn-size="18"></i>
+                        <span class="label">Tim</span>
+                    </a>
+                </li>
+                <li>
+                    @if (request()->routeIs('razen-style.master-data.media-sosial.index'))
+                    <a href="#master_data" class="active">
+                    @else
+                    <a href="#master_data">
+                    @endif
+                        <i data-acorn-icon="notebook-1" class="icon" data-acorn-size="18"></i>
+                        <span class="label">Master Data</span>
+                    </a>
+                    <ul id="master_data">
+                        <li>
+                            @if (request()->routeIs('razen-style.master-data.media-sosial.index'))
+                                <a href="{{ route('razen-style.master-data.media-sosial.index') }}" class="active">
+                            @else
+                                <a href="{{ route('razen-style.master-data.media-sosial.index') }}">
+                            @endif
+                                <span class="label">Media Sosial</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li>
+                    @if (request()->routeIs('razen-style.landing-page.beranda.index') ||
+                    request()->routeIs('razen-style.landing-page.perusahaan.index'))
                     <a href="#landing_page" class="active">
                     @else
                     <a href="#landing_page">
@@ -105,6 +137,15 @@
                                 <a href="{{ route('razen-style.landing-page.beranda.index') }}">
                             @endif
                                 <span class="label">Beranda</span>
+                            </a>
+                        </li>
+                        <li>
+                            @if (request()->routeIs('razen-style.landing-page.perusahaan.index'))
+                                <a href="{{ route('razen-style.landing-page.perusahaan.index') }}" class="active">
+                            @else
+                                <a href="{{ route('razen-style.landing-page.perusahaan.index') }}">
+                            @endif
+                                <span class="label">Perusahaan</span>
                             </a>
                         </li>
                     </ul>

@@ -3,18 +3,18 @@
 
 @section('content')
     <!-- HEADING-BANNER START -->
-    <div class="heading-banner-area overlay-bg">
+    <div class="heading-banner-area overlay-bg" id="heading-banner-area" style="background:rgba(0,0,0,0) url({{asset('hurst/img/bg/1.jpg')}}) no-repeat scroll center center/cover">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="heading-banner">
                         <div class="heading-banner-title">
-                            <h2>About Us</h2>
+                            <h2>Perusahaan</h2>
                         </div>
                         <div class="breadcumbs pb-15">
                             <ul>
-                                <li><a href="index.html">Home</a></li>
-                                <li>About Us</li>
+                                <li><a href="{{ route('beranda') }}">Home</a></li>
+                                <li>Perusahaan</li>
                             </ul>
                         </div>
                     </div>
@@ -24,7 +24,7 @@
     </div>
     <!-- HEADING-BANNER END -->
     <!-- ABOUT-US-AREA START -->
-    <div class="about-us-area  pt-80 pb-80">
+    <div class="about-us-area  pt-80 pb-80" id="about-us-area">
         <div class="container">
             <div class="about-us bg-white">
                 <div class="row">
@@ -47,7 +47,7 @@
     </div>
     <!-- ABOUT-US-AREA END -->
     <!-- TEAM-MEMBER-AREA END -->
-    <div class="team-member-area pb-80">
+    <div class="team-member-area pb-80" id="team-member-area">
         <div class="container">
             <!-- Section-title start -->
             <div class="row">
