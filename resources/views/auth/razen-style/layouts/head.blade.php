@@ -5,7 +5,7 @@
 @endphp
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-<title>@yield('title', 'Razen Blog | Login')</title>
+<title>@yield('title', 'Razen Style | Login')</title>
 <meta name="description" content="Login Page" />
 <!-- Favicon Tags Start -->
 <link rel="apple-touch-icon-precomposed" sizes="57x57" href="{{ asset('acorn/acorn-elearning-portal/img/favicon/apple-touch-icon-57x57.png') }}" />

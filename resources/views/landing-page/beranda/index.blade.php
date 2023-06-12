@@ -3,7 +3,7 @@
 
 @section('content')
     <!-- SLIDER-AREA START  -->
-    <section class="slider-area slider-style-2">
+    <section class="slider-area slider-style-2" id="slider-area">
         <div class="bend niceties preview-2">
             <div id="ensign-nivoslider" class="slides">
                 <img src="{{ asset('hurst/img/slider/slider-2/1.jpg') }}" alt="" title="#slider-direction-1"  />
@@ -83,7 +83,7 @@
     </section>
     <!-- SLIDER-AREA END -->
     <!-- BANNER-AREA START -->
-    <div class="banner-area pt-80">
+    <div class="banner-area pt-80" id="banner-area">
         <div class="container">
             <div class="row">
                 <div class="col-md-5">
@@ -117,7 +117,7 @@
     </div>
     <!-- BANNER-AREA END -->
     <!-- PRODUCT-AREA START -->
-    <div class="product-area pt-80 pb-30 product-style-2">
+    <div class="product-area pt-80 pb-30 product-style-2" id="product-area">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -277,7 +277,7 @@
     </div>
     <!-- PRODUCT-AREA END -->
     <!-- DISCOUNT-PRODUCT START -->
-    <div class="discount-product-area discount-2">
+    <div class="discount-product-area discount-2" id="discount-product-area">
         <div class="container">
             <div class="row">
                 <div class="col-lg-8 col-md-8">
@@ -389,7 +389,7 @@
     </div>
     <!-- DISCOUNT-PRODUCT END -->
     <!-- PURCHASE-ONLINE-AREA START -->
-    <div class="purchase-online-area pt-80 product-style-2">
+    <div class="purchase-online-area pt-80 product-style-2" id="purchase-online-area">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -1414,7 +1414,7 @@
     </div>
     <!-- PURCHASE-ONLINE-AREA END -->
     <!-- BLGO-AREA START -->
-    <div class="blog-area blog-2 pt-50">
+    <div class="blog-area blog-2 pt-50" id="blog-area">
         <div class="container">
             <!-- Section-title start -->
             <div class="row">
@@ -1506,7 +1506,7 @@
     </div>
     <!-- BLGO-AREA END -->
     <!-- BRAND-LOGO-AREA START -->
-    <div class="brand-logo-area pt-80">
+    <div class="brand-logo-area pt-80" id="brand-logo-area">
         <div class="container">
             <div class="row">
                 <div class="col-12">
