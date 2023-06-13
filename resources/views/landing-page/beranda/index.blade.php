@@ -2,83 +2,47 @@
 @section('title', 'Beranda | Razen Style')
 
 @section('content')
+    @php
+        use App\Models\LandingPageBeranda;
+        use App\Models\LandingPageBannerBeranda;
+        use Carbon\Carbon;
+
+        $banners = LandingPageBannerBeranda::all();
+
+        $beranda = LandingPageBeranda::first();
+
+        $section_3 = json_decode($beranda->section_3, true);
+        $section_5 = json_decode($beranda->section_5, true);
+        $section_6 = json_decode($beranda->section_6, true);
+    @endphp
     <!-- SLIDER-AREA START  -->
     <section class="slider-area slider-style-2" id="slider-area">
         <div class="bend niceties preview-2">
             <div id="ensign-nivoslider" class="slides">
-                <img src="{{ asset('hurst/img/slider/slider-2/1.jpg') }}" alt="" title="#slider-direction-1"  />
-                <img src="{{ asset('hurst/img/slider/slider-2/2.jpg') }}" alt="" title="#slider-direction-2"  />
-                <img src="{{ asset('hurst/img/slider/slider-2/3.jpg') }}" alt="" title="#slider-direction-3"  />
+                @foreach ($banners as $banner)
+                    <img src="{{ asset('images/landing-page/beranda/'.$banner->gambar) }}" alt="" title="#slider-direction-{{$banner->id}}"  />
+                @endforeach
             </div>
-            <!-- direction 1 -->
-            <div id="slider-direction-1" class="t-cn slider-direction">
-                <div class="slider-progress"></div>
-                <div class="slider-content t-lfl s-tb slider-1">
-                    <div class="title-container s-tb-c title-compress">
-                        <div class="layer-1">
-                            <div class="wow fadeInUpBig" data-wow-duration="2s" data-wow-delay="0.5s">
-                                <h3 class="slider-title3 text-uppercase mb-0" >welcome to our</h3>
-                            </div>
-                            <div class="wow fadeInUpBig" data-wow-duration="2.5s" data-wow-delay="0.5s">
-                                <h2 class="slider-title1 text-uppercase mb-0"><span class="d-none d-md-block">elegent </span>  furniture</h2>
-                            </div>
-                            <div class="wow fadeInUpBig" data-wow-duration="3s" data-wow-delay="0.5s">
-                                <h2 class="slider-title2 text-uppercase" >gallery 2021</h2>
-                            </div>
-                            <div class="wow fadeInUpBig" data-wow-duration="3.5s" data-wow-delay="0.5s">
-                                <a href="#" class="button-one style-2 text-uppercase mt-20" data-text="Shop now">Shop now</a>
+            @foreach ($banners as $banner)
+                <div id="slider-direction-{{$banner->id}}" class="slider-direction">
+                    <div class="slider-progress"></div>
+                    <div class="slider-content t-lfl s-tb slider-1">
+                        <div class="title-container s-tb-c title-compress">
+                            <div class="layer-1">
+                                <div class="wow fadeInUpBig" data-wow-duration="1s" data-wow-delay="0.5s">
+                                    <h3 class="slider-title3 text-uppercase mb-0" >{!! $banner->judul !!}</h3>
+                                </div>
+                                <div class="wow fadeInUpBig" data-wow-duration="2.5s" data-wow-delay="0.5s">
+                                    <p class="slider-pro-brief">{!! $banner->deskripsi !!}</p>
+                                </div>
+                                <div class="wow fadeInUpBig" data-wow-duration="3s" data-wow-delay="0.5s">
+                                    <a href="https://shop.razen.co.id/stores/razen-style" class="button-one style-2 text-uppercase mt-20" data-text="Toko Sekarang" target="blank">Toko Sekarang</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <!-- direction 2 -->
-            <div id="slider-direction-2" class="slider-direction">
-                <div class="slider-progress"></div>
-                <div class="slider-content t-lfl s-tb slider-1">
-                    <div class="title-container s-tb-c title-compress">
-                        <div class="layer-1">
-                            <div class="wow fadeInUpBig" data-wow-duration="1s" data-wow-delay="0.5s">
-                                <h3 class="slider-title3 text-uppercase mb-0" >welcome to our</h3>
-                            </div>
-                            <div class="wow fadeInUpBig" data-wow-duration="1.5s" data-wow-delay="0.5s">
-                                <h2 class="slider-title1 text-uppercase"><span class="d-none d-md-block">elegent </span> furniture</h2>
-                            </div>
-                            <div class="wow fadeInUpBig" data-wow-duration="2s" data-wow-delay="0.5s">
-                                <p class="slider-pro-brief">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.  If you are going to use a  passage of Lorem Ipsum, you need to be sure there hidden in the middle of text.</p>
-                            </div>
-                            <div class="wow fadeInUpBig" data-wow-duration="2.5s" data-wow-delay="0.5s">
-                                <a href="#" class="button-one style-2 text-uppercase mt-20" data-text="Shop now">Shop now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- direction 3 -->
-            <div id="slider-direction-3" class="slider-direction">
-                <div class="slider-progress"></div>
-                <div class="slider-content t-lfl s-tb slider-1">
-                    <div class="title-container s-tb-c title-compress">
-                        <div class="layer-1">
-                            <div class="wow fadeInUpBig" data-wow-duration="1s" data-wow-delay="0.5s">
-                                <h3 class="slider-title3 text-uppercase mb-0" >welcome to our</h3>
-                            </div>
-                            <div class="wow fadeInUpBig" data-wow-duration="1.5s" data-wow-delay="0.5s">
-                                <h2 class="slider-title1 text-uppercase mb-0"><span class="d-none d-md-block">elegent </span> furniture</h2>
-                            </div>
-                            <div class="wow fadeInUpBig" data-wow-duration="2s" data-wow-delay="0.5s">
-                                <h2 class="slider-title2 text-uppercase" >gallery 2021</h2>
-                            </div>
-                            <div class="wow fadeInUpBig" data-wow-duration="2.5s" data-wow-delay="0.5s">
-                                <p class="slider-pro-brief">There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form, by injected humour, or randomised words which don't look even slightly believable.  If you are going to use a  passage of Lorem Ipsum, you need to be sure there hidden in the middle of text.</p>
-                            </div>
-                            <div class="wow fadeInUpBig" data-wow-duration="3s" data-wow-delay="0.5s">
-                                <a href="#" class="button-one style-2 text-uppercase mt-20" data-text="Shop now">Shop now</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
     </section>
     <!-- SLIDER-AREA END -->
@@ -122,7 +86,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title text-center">
-                        <h2 class="title-border">Featured Products</h2>
+                        <h2 class="title-border">{{$section_3?$section_3['judul']:'' }}</h2>
                     </div>
                     <div class="product-slider style-2 arrow-left-right">
                         <div class="col-12">
@@ -394,7 +358,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title text-center">
-                        <h2 class="title-border">Purchase Online on Hurst</h2>
+                        <h2 class="title-border">{{$section_5?$section_5['judul']:'' }}</h2>
                     </div>
                 </div>
             </div>
@@ -1420,7 +1384,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="section-title text-center">
-                        <h2 class="title-border">From The Blog</h2>
+                        <h2 class="title-border">{{$section_6?$section_6['judul']:'' }}</h2>
                     </div>
                 </div>
             </div>
@@ -1512,21 +1476,11 @@
                 <div class="col-12">
                     <div class="brand">
                         <div class="brand-slider">
-                            <div class="single-brand">
-                                <a href="https://themeforest.net/user/bootexperts/portfolio" target="_blank"><img src="{{ asset('hurst/img/brand/1.png') }}" alt="" /></a>
-                            </div>
-                            <div class="single-brand">
-                                <a href="https://themeforest.net/user/codecarnival/portfolio" target="_blank"><img src="{{ asset('hurst/img/brand/2.png') }}" alt="" /></a>
-                            </div>
-                            <div class="single-brand">
-                                <a href="https://themeforest.net/user/devitems/portfolio" target="_blank"><img src="{{ asset('hurst/img/brand/3.png') }}" alt="" /></a>
-                            </div>
-                            <div class="single-brand">
-                                <a href="https://themeforest.net/user/hastech/portfolio" target="_blank"><img src="{{ asset('hurst/img/brand/4.png') }}" alt="" /></a>
-                            </div>
-                            <div class="single-brand">
-                                <a href="https://psdrightsell.com/" target="_blank"><img src="{{ asset('hurst/img/brand/5.png') }}" alt="" /></a>
-                            </div>
+                            @foreach ($brands as $brand)
+                                <div class="single-brand">
+                                    <a href="#"><img src="{{ asset('images/razen-style/brand/'.$brand->gambar) }}" alt="" /></a>
+                                </div>
+                            @endforeach
                         </div>
                     </div>
                 </div>

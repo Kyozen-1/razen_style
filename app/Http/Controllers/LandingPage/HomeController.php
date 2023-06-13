@@ -7,17 +7,27 @@ use Illuminate\Http\Request;
 use App\Models\Profil;
 use Illuminate\Support\Facades\Mail;
 use RealRashid\SweetAlert\Facades\Alert;
+use App\Models\Brand;
+use App\Models\Tim;
+use App\Models\PivotTimMediaSosial;
+use App\Models\MasterMediaSosial;
 
 class HomeController extends Controller
 {
     public function beranda()
     {
-        return view('landing-page.beranda.index');
+        $brands = Brand::all();
+        return view('landing-page.beranda.index', [
+            'brands' => $brands
+        ]);
     }
 
     public function perusahaan()
     {
-        return view('landing-page.perusahaan.index');
+        $tims = Tim::all();
+        return view('landing-page.perusahaan.index', [
+            'tims' => $tims
+        ]);
     }
 
     public function produk()

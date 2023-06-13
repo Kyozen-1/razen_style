@@ -1,10 +1,16 @@
+    @php
+        use App\Models\Profil;
+        use Carbon\Carbon;
+
+        $profil = Profil::first();
+    @endphp
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
     <title>@yield('title', 'Beranda | Razen Style')</title>
-    <meta name="description" content="Razen Style">
+    <meta name="description" content="{{$profil->deskripsi}}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('hurst/img/favicon.ico') }}">
+    <link rel="shortcut icon" type="image/x-icon" href="{{ asset('images/razen-style/logo/'.$profil->logo_kecil) }}">
     <!-- Place favicon.ico in the root directory -->
 
     <!-- Google Font -->

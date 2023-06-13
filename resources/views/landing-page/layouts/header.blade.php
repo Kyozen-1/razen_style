@@ -1,3 +1,9 @@
+@php
+    use App\Models\Profil;
+    use Carbon\Carbon;
+
+    $profil = Profil::first();
+@endphp
 <!-- HEADER-AREA START -->
 <header id="sticky-menu" class="header header-2">
     <div class="header-area">
@@ -5,7 +11,7 @@
             <div class="row">
                 <div class="col-md-4 offset-md-4 col-7">
                     <div class="logo text-md-center">
-                        <a href="index.html"><img src="{{ asset('hurst/img/logo/logo.png') }}" alt="" /></a>
+                        <a href="{{ route('beranda') }}"><img src="{{ asset('images/razen-style/logo/'.$profil->logo) }}" alt="" /></a>
                     </div>
                 </div>
             </div>
@@ -22,7 +28,7 @@
             <ul>
                 <li><a href="{{ route('beranda') }}">Beranda</a></li>
                 <li><a href="{{ route('perusahaan') }}">Perusahaan</a></li>
-                <li><a href="#">E-Commerce</a></li>
+                <li><a href="https://shop.razen.co.id/stores/razen-style" target="blank">E-Commerce</a></li>
                 <li><a href="#">E-Learning</a></li>
                 <li><a href="{{ route('produk') }}">Produk</a></li>
                 <li><a href="#">Blog</a></li>
@@ -44,7 +50,7 @@
                             <li><a href="{{ route('beranda') }}">Beranda</a></li>
                             <li><a href="{{ route('perusahaan') }}">Perusahaan</a></li>
                             <li><a href="#">E-Commerce</a></li>
-                            <li><a href="#">E-Learning</a></li>
+                            <li><a href="https://shop.razen.co.id/stores/razen-style" target="blank">E-Learning</a></li>
                             <li><a href="{{ route('produk') }}">Produk</a></li>
                             <li><a href="#">Blog</a></li>
                             <li><a href="{{ route('kontak') }}">Kontak</a></li>
