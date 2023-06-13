@@ -1,3 +1,9 @@
+@php
+    use Carbon\Carbon;
+    use App\Models\Profil;
+
+    $profil = Profil::first();
+@endphp
 <!-- FOOTER START -->
 <footer>
     <!-- Footer-area start -->
@@ -6,63 +12,26 @@
             <div class="row">
                 <div class="col-lg-4 col-md-6">
                     <div class="single-footer">
-                        <h3 class="footer-title  title-border">Contact Us</h3>
+                        <h3 class="footer-title  title-border">Kontak Kami</h3>
                         <ul class="footer-contact">
-                            <li><span>Address :</span>28 Green Tower, Street Name,<br>New York City, USA</li>
-                            <li><span>Cell-Phone :</span>012345 - 123456789</li>
-                            <li><span>Email :</span>your-email@gmail.com</li>
+                            <li><span>Alamat :</span>{{$profil->alamat}}</li>
+                            <li><span>No. HP :</span>{{$profil->no_hp}}</li>
+                            <li><span>Email :</span>{{$profil->email}}</li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-lg-2 col-md-3 col-sm-6">
                     <div class="single-footer">
-                        <h3 class="footer-title  title-border">accounts</h3>
+                        <h3 class="footer-title  title-border">Halaman</h3>
                         <ul class="footer-menu">
-                            <li><a href="#"><i class="zmdi zmdi-dot-circle"></i>My Account</a></li>
-                            <li><a href="#"><i class="zmdi zmdi-dot-circle"></i>My Wishlist</a></li>
-                            <li><a href="#"><i class="zmdi zmdi-dot-circle"></i>My Cart</a></li>
-                            <li><a href="#"><i class="zmdi zmdi-dot-circle"></i>Sign In</a></li>
-                            <li><a href="#"><i class="zmdi zmdi-dot-circle"></i>Check out</a></li>
+                            <li><a href="{{ route('beranda') }}"><i class="zmdi zmdi-dot-circle"></i>Beranda</a></li>
+                            <li><a href="{{ route('perusahaan') }}"><i class="zmdi zmdi-dot-circle"></i>Perusahaan</a></li>
+                            <li><a href="#"><i class="zmdi zmdi-dot-circle"></i>E-Commerce</a></li>
+                            <li><a href="#"><i class="zmdi zmdi-dot-circle"></i>E-Learning</a></li>
+                            <li><a href="#"><i class="zmdi zmdi-dot-circle"></i>Produk</a></li>
+                            <li><a href="#"><i class="zmdi zmdi-dot-circle"></i>Blog</a></li>
+                            <li><a href="#"><i class="zmdi zmdi-dot-circle"></i>Kontak</a></li>
                         </ul>
-                    </div>
-                </div>
-                <div class="col-lg-2 col-md-3 col-sm-6">
-                    <div class="single-footer">
-                        <h3 class="footer-title  title-border">shipping</h3>
-                        <ul class="footer-menu">
-                            <li><a href="#"><i class="zmdi zmdi-dot-circle"></i>New Products</a></li>
-                            <li><a href="#"><i class="zmdi zmdi-dot-circle"></i>Top Sellers</a></li>
-                            <li><a href="#"><i class="zmdi zmdi-dot-circle"></i>Manufactirers</a></li>
-                            <li><a href="#"><i class="zmdi zmdi-dot-circle"></i>Suppliers</a></li>
-                            <li><a href="#"><i class="zmdi zmdi-dot-circle"></i>Specials</a></li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="col-lg-4 col-md-6">
-                    <div class="single-footer">
-                        <h3 class="footer-title  title-border">your choice Products</h3>
-                        <div class="footer-product">
-                            <div class="row">
-                                <div class="col-sm-6 col-12">
-                                    <div class="footer-thumb">
-                                        <a href="#"><img src="img/footer/1.jpg" alt="" /></a>
-                                        <div class="footer-thumb-info">
-                                            <p><a href="#">Furniture Product<br>Name</a></p>
-                                            <h4 class="price-3">$ 60.00</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-6 col-12">
-                                    <div class="footer-thumb">
-                                        <a href="#"><img src="img/footer/1.jpg" alt="" /></a>
-                                        <div class="footer-thumb-info">
-                                            <p><a href="#">Furniture Product<br>Name</a></p>
-                                            <h4 class="price-3">$ 60.00</h4>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -73,17 +42,9 @@
     <div class="copyright-area">
         <div class="container">
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     <div class="copyright">
-                        <p class="mb-0">&copy; <a href=" https://themeforest.net/user/codecarnival/portfolio " target="_blank"> CodeCarnival  </a> 2022. All Rights Reserved.</p>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="payment  text-md-end">
-                        <a href="#"><img src="img/payment/1.png" alt="" /></a>
-                        <a href="#"><img src="img/payment/2.png" alt="" /></a>
-                        <a href="#"><img src="img/payment/3.png" alt="" /></a>
-                        <a href="#"><img src="img/payment/4.png" alt="" /></a>
+                        <p class="mb-0">&copy; <a href=" https://razenteknologi.com/" target="_blank"> {{$profil->pt}}  </a> {{Carbon::now()->year}}. All Rights Reserved.</p>
                     </div>
                 </div>
             </div>
