@@ -25,33 +25,29 @@
                                     <div class="modal-product">
                                         <div class="product-images">
                                             <div class="main-image images">
-                                                <img alt="#" src="img/product/quickview-photo.jpg"/>
+                                                <img id="modal-img" alt="#" src="img/product/quickview-photo.jpg"/>
                                             </div>
                                         </div><!-- .product-images -->
 
                                         <div class="product-info">
-                                            <h1>Aenean eu tristique</h1>
+                                            <h1 id="modal-nama">Aenean eu tristique</h1>
                                             <div class="price-box-3">
                                                 <hr />
-                                                <div class="s-price-box">
-                                                    <span class="new-price">$160.00</span>
-                                                    <span class="old-price">$190.00</span>
-                                                </div>
+                                                    <div class="s-price-box">
+                                                        <span class="new-price" id="modal-harga">$160.00</span>
+                                                    </div>
                                                 <hr />
                                             </div>
-                                            <a href="shop.html" class="see-all">See all features</a>
+                                            <a href="{{ route('produk') }}" class="see-all">Lihat semua produk</a>
                                             <div class="quick-add-to-cart">
-                                                <form method="post" class="cart">
-                                                    <div class="numbers-row">
-                                                        <input type="number" id="french-hens" value="3" min="1">
-                                                    </div>
-                                                    <button class="single_add_to_cart_button" type="submit">Add to cart</button>
+                                                <form class="cart">
+                                                    <a href="" class="btn rounded waves-effect waves-light border text-white" style="background: #434343;" id="modal-link">Cek Toko</a>
                                                 </form>
                                             </div>
-                                            <div class="quick-desc">
+                                            <div class="quick-desc" id="modal-deskripsi">
                                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam fringilla augue nec est tristique auctor. Donec non est at libero.
                                             </div>
-                                            <div class="social-sharing">
+                                            {{-- <div class="social-sharing">
                                                 <div class="widget widget_socialsharing_widget">
                                                     <h3 class="widget-title-modal">Share this product</h3>
                                                     <ul class="social-icons">
@@ -61,7 +57,7 @@
                                                         <li><a target="_blank" title="LinkedIn" href="#" class="linkedin social-icon"><i class="zmdi zmdi-linkedin"></i></a></li>
                                                     </ul>
                                                 </div>
-                                            </div>
+                                            </div> --}}
                                         </div><!-- .product-info -->
                                     </div><!-- .modal-product -->
                                 </div><!-- .modal-body -->

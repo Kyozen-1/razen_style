@@ -11,14 +11,20 @@ use App\Models\Brand;
 use App\Models\Tim;
 use App\Models\PivotTimMediaSosial;
 use App\Models\MasterMediaSosial;
+use GuzzleHttp\Client as GuzzleHttpClient;
 
 class HomeController extends Controller
 {
     public function beranda()
     {
         $brands = Brand::all();
+        $guzzleClient = new GuzzleHttpClient();
+
+        $get_product_featured = $guzzleClient->get(env('RAZEN_URL').'api/product/razen-style/produk-featured');
+        $product_featureds = json_decode($get_product_featured->getBody())->data;
         return view('landing-page.beranda.index', [
-            'brands' => $brands
+            'brands' => $brands,
+            'product_featureds' => $product_featureds
         ]);
     }
 

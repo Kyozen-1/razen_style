@@ -2,20 +2,26 @@
 @section('title', 'Kontak | Razen Style')
 
 @section('content')
+    @php
+        use App\Models\LandingPageKontak;
 
+        $kontak = LandingPageKontak::first();
+
+        $section_1 = json_decode($kontak->section_1, true);
+    @endphp
     <!-- HEADING-BANNER START -->
-    <div class="heading-banner-area overlay-bg" style="background:rgba(0,0,0,0) url({{asset('hurst/img/bg/1.jpg')}}) no-repeat scroll center center/cover" id="heading-banner-area">
+    <div class="heading-banner-area overlay-bg" style="background:rgba(0,0,0,0) url({{asset('images/landing-page/kontak/'.$section_1['gambar'])}}) no-repeat scroll center center/cover" id="heading-banner-area">
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
                     <div class="heading-banner">
                         <div class="heading-banner-title">
-                            <h2>Contact Us</h2>
+                            <h2>Kontak</h2>
                         </div>
                         <div class="breadcumbs pb-15">
                             <ul>
-                                <li><a href="index.html">Home</a></li>
-                                <li>Contact Us</li>
+                                <li><a href="{{ route('beranda') }}">Beranda</a></li>
+                                <li>Kontak</li>
                             </ul>
                         </div>
                     </div>

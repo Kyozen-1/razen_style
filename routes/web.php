@@ -28,6 +28,7 @@ Auth::routes(['register' => false, 'login' => false]);
 Route::get('/', [HomeController::class, 'beranda'])->name('beranda');
 Route::get('/perusahaan', [HomeController::class, 'perusahaan'])->name('perusahaan');
 Route::get('/produk', [HomeController::class, 'produk'])->name('produk');
+Route::get('/produk/detail/{id}', [HomeController::class, 'produk_detail'])->name('produk-detail');
 Route::get('/kontak', [HomeController::class, 'kontak'])->name('kontak');
 Route::post('/kontak-kami',[HomeController::class, 'kontak_kami'])->name('kontak-kami');
 

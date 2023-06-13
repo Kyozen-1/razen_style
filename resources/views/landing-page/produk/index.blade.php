@@ -2,20 +2,26 @@
 @section('title', 'Produk | Razen Style')
 
 @section('content')
+@php
+    use App\Models\LandingPageProduk;
 
+    $produk = LandingPageProduk::first();
+
+    $section_1 = json_decode($produk->section_1, true);
+@endphp
 <!-- HEADING-BANNER START -->
-<div class="heading-banner-area overlay-bg" id="heading-banner-area" style="background:rgba(0,0,0,0) url({{asset('hurst/img/bg/1.jpg')}}) no-repeat scroll center center/cover">
+<div class="heading-banner-area overlay-bg" id="heading-banner-area" style="background:rgba(0,0,0,0) url({{asset('images/landing-page/produk/'.$section_1['gambar'])}}) no-repeat scroll center center/cover">
     <div class="container">
         <div class="row">
             <div class="col-md-12">
                 <div class="heading-banner">
                     <div class="heading-banner-title">
-                        <h2>Shop</h2>
+                        <h2>Produk</h2>
                     </div>
                     <div class="breadcumbs pb-15">
                         <ul>
-                            <li><a href="#">Home</a></li>
-                            <li>Shop</li>
+                            <li><a href="{{ route('beranda') }}">Beranda</a></li>
+                            <li>Produk</li>
                         </ul>
                     </div>
                 </div>
