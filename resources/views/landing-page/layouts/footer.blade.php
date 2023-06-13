@@ -26,11 +26,11 @@
                         <ul class="footer-menu">
                             <li><a href="{{ route('beranda') }}"><i class="zmdi zmdi-dot-circle"></i>Beranda</a></li>
                             <li><a href="{{ route('perusahaan') }}"><i class="zmdi zmdi-dot-circle"></i>Perusahaan</a></li>
-                            <li><a href="#"><i class="zmdi zmdi-dot-circle"></i>E-Commerce</a></li>
+                            <li><a href="https://shop.razen.co.id/stores/razen-style"><i class="zmdi zmdi-dot-circle"></i>E-Commerce</a></li>
                             <li><a href="#"><i class="zmdi zmdi-dot-circle"></i>E-Learning</a></li>
-                            <li><a href="#"><i class="zmdi zmdi-dot-circle"></i>Produk</a></li>
+                            <li><a href="{{ route('produk') }}"><i class="zmdi zmdi-dot-circle"></i>Produk</a></li>
                             <li><a href="#"><i class="zmdi zmdi-dot-circle"></i>Blog</a></li>
-                            <li><a href="#"><i class="zmdi zmdi-dot-circle"></i>Kontak</a></li>
+                            <li><a href="{{ route('kontak') }}"><i class="zmdi zmdi-dot-circle"></i>Kontak</a></li>
                         </ul>
                     </div>
                 </div>

@@ -75,5 +75,6 @@
 		</div>
 		<!-- WRAPPER END -->
         @include('landing-page.layouts.js')
+        @include('sweetalert::alert')
 	</body>
 </html>

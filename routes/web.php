@@ -29,6 +29,7 @@ Route::get('/', [HomeController::class, 'beranda'])->name('beranda');
 Route::get('/perusahaan', [HomeController::class, 'perusahaan'])->name('perusahaan');
 Route::get('/produk', [HomeController::class, 'produk'])->name('produk');
 Route::get('/kontak', [HomeController::class, 'kontak'])->name('kontak');
+Route::post('/kontak-kami',[HomeController::class, 'kontak_kami'])->name('kontak-kami');
 
 Route::get('/login',[LoginController::class, 'showLoginForm'])->name('razen-style.login');
 Route::post('/login', [LoginController::class, 'login'])->name('razen-style.login.submit');
