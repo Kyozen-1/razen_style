@@ -11,6 +11,7 @@
 
         $beranda = LandingPageBeranda::first();
 
+        $section_2 = json_decode($beranda->section_2, true);
         $section_3 = json_decode($beranda->section_3, true);
         $section_5 = json_decode($beranda->section_5, true);
         $section_6 = json_decode($beranda->section_6, true);
@@ -50,27 +51,41 @@
     <div class="banner-area pt-80" id="banner-area">
         <div class="container">
             <div class="row">
-                <div class="col-md-5">
-                    <!-- Single-banner start -->
-                    <div class="single-banner banner-1 banner-4">
-                        <a class="banner-thumb" href="#"><img src="{{ asset('hurst/img/banner/3.jpg') }}" alt="" /></a>
-                        <span class="pro-label new-label">new</span>
-                        <span class="price">$50.00</span>
-                        <div class="banner-brief">
-                            <h2 class="banner-title"><a href="#">Product name</a></h2>
-                            <p class="mb-0">Furniture</p>
+                @if ($product_new)
+                    <div class="col-md-5">
+                        <!-- Single-banner start -->
+                        <div class="single-banner banner-1 banner-4">
+                            <a class="banner-thumb" href="#"><img src="{{ env('RAZEN_URL') }}storage/{{json_decode($product_new->gambar)[0]}}" alt="" /></a>
+                            <span class="pro-label new-label">{{$product_new->label[0]->nama}}</span>
+                            <span class="price">Rp. {{number_format($product_new->harga, 2, ',', '.')}}</span>
+                            <div class="banner-brief">
+                                <h2 class="banner-title"><a href="#">{{$product_new->nama}}</a></h2>
+                                <p class="mb-0">
+                                    @php
+                                        $kategori_produk = $product_new->kategori_produk;
+                                    @endphp
+                                    @for ($i = 0; $i < count($kategori_produk); $i++)
+                                        {{$kategori_produk[$i]->nama . ", "}}
+                                    @endfor
+                                </p>
+                            </div>
+                            <a href="{{preg_replace('#/+#','/',env('RAZEN_URL').$product_new->link)}}" class="button-one font-16px" data-text="Beli Sekarang">Beli Sekarang</a>
                         </div>
-                        <a href="#" class="button-one font-16px" data-text="Buy now">Buy now</a>
+                        <!-- Single-banner end -->
                     </div>
-                    <!-- Single-banner end -->
-                </div>
+                @endif
+
+                @if ($product_new)
                 <div class="col-md-7">
+                @else
+                <div class="col-md-12">
+                @endif
                     <!-- Single-banner start -->
                     <div class="single-banner banner-3">
-                        <a class="banner-thumb" href="#"><img src="{{ asset('hurst/img/banner/4.jpg') }}" alt="" /></a>
+                        <a class="banner-thumb" href="#"><img src="{{ asset('images/landing-page/beranda/'.$section_2['gambar']) }}" alt="" /></a>
                         <div class="banner-brief">
                             <h2 class="banner-title">
-                                <a class="text-uppercase" href="#">design by <br />hurst <br />modern <br /><span>-2021</span></a>
+                                <a class="text-uppercase" href="#">{{$section_2?$section_2['judul']:'' }}</a>
                             </h2>
                         </div>
                     </div>
@@ -121,7 +136,7 @@
                                                 data-link="{{preg_replace('#/+#','/',env('RAZEN_URL').$item->link)}}"
                                                 data-deskripsi="{{$item->deskripsi}}"
                                                 ><i class="zmdi zmdi-zoom-in"></i></a>
-                                            <a href="{{preg_replace('#/+#','/',env('RAZEN_URL').$item->link)}}" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart" target="blank"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
+                                            <a href="{{preg_replace('#/+#','/',env('RAZEN_URL').$item->link)}}" data-bs-toggle="tooltip" data-placement="top" title="Buka Toko" target="blank"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -140,86 +155,31 @@
                 <div class="col-lg-8 col-md-8">
                     <div class="row">
                         <div class="discount-product-slider dots-bottom-right">
-                            <!-- single-discount-product start -->
-                            <div class="col-lg-12">
-                                <div class="discount-product">
-                                    <div class="row">
-                                        <div class="col-lg-5 col-md-5 col-sm-6">
-                                            <a href="single-blog.html">
-                                                <img src="{{ asset('hurst/img/discount/5.jpg') }}" alt="" />
-                                            </a>
-                                        </div>
-                                        <div class="col-lg-7 col-md-7 col-sm-6">
-                                            <div class="discount-info">
-                                                <h1 class="text-dark-red">Discount 50%</h1>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed does eiusmodes tempor incididunt ut labore labore et labore et dolore magna aliqua. Ut enim ad minim venim.</p>
-                                                <a class="button-2 text-dark-red text-uppercase" href="#">GET DISCOUNT <i class="zmdi zmdi-long-arrow-right"></i></a>
+                            @foreach ($product_discount as $item)
+                                <!-- single-discount-product start -->
+                                <div class="col-lg-12">
+                                    <div class="discount-product">
+                                        <div class="row">
+                                            <div class="col-lg-5 col-md-5 col-sm-6">
+                                                <a href="{{ route('produk-detail', ['id'=>$item->id]) }}">
+                                                    <img src="{{ env('RAZEN_URL') }}storage/{{json_decode($item->gambar)[0]}}" alt="" />
+                                                </a>
+                                            </div>
+                                            <div class="col-lg-7 col-md-7 col-sm-6">
+                                                <div class="discount-info">
+                                                    @php
+                                                        $persen_diskon = (($item->harga - $item->harga_diskon) / $item->harga) * 100;
+                                                    @endphp
+                                                    <h1 class="text-dark-red">Diskon {{$persen_diskon}}%</h1>
+                                                    <p>{!!$item->deskripsi!!}</p>
+                                                    <a class="button-2 text-dark-red text-uppercase" href="{{preg_replace('#/+#','/',env('RAZEN_URL').$item->link)}}">Dapatkan Diskon <i class="zmdi zmdi-long-arrow-right"></i></a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <!-- single-discount-product end -->
-                            <!-- single-discount-product start -->
-                            <div class="col-lg-12">
-                                <div class="discount-product">
-                                    <div class="row">
-                                        <div class="col-lg-5 col-md-5 col-sm-6">
-                                            <a href="single-blog.html">
-                                                <img src="{{ asset('hurst/img/discount/6.jpg') }}" alt="" />
-                                            </a>
-                                        </div>
-                                        <div class="col-lg-7 col-md-7 col-sm-6">
-                                            <div class="discount-info">
-                                                <h1 class="text-dark-red">Discount 50%</h1>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed does eiusmodes tempor incididunt ut labore labore et labore et dolore magna aliqua. Ut enim ad minim venim.</p>
-                                                <a class="button-2 text-dark-red text-uppercase" href="#">GET DISCOUNT <i class="zmdi zmdi-long-arrow-right"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- single-discount-product end -->
-                            <!-- single-discount-product start -->
-                            <div class="col-lg-12">
-                                <div class="discount-product">
-                                    <div class="row">
-                                        <div class="col-lg-5 col-md-5 col-sm-6">
-                                            <a href="single-blog.html">
-                                                <img src="{{ asset('hurst/img/discount/7.jpg') }}" alt="" />
-                                            </a>
-                                        </div>
-                                        <div class="col-lg-7 col-md-7 col-sm-6">
-                                            <div class="discount-info">
-                                                <h1 class="text-dark-red">Discount 50%</h1>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed does eiusmodes tempor incididunt ut labore labore et labore et dolore magna aliqua. Ut enim ad minim venim.</p>
-                                                <a class="button-2 text-dark-red text-uppercase" href="#">GET DISCOUNT <i class="zmdi zmdi-long-arrow-right"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- single-discount-product end -->
-                            <!-- single-discount-product start -->
-                            <div class="col-lg-12">
-                                <div class="discount-product">
-                                    <div class="row">
-                                        <div class="col-lg-5 col-md-5 col-sm-6">
-                                            <a href="single-blog.html">
-                                                <img src="{{ asset('hurst/img/discount/8.jpg') }}" alt="" />
-                                            </a>
-                                        </div>
-                                        <div class="col-lg-7 col-md-7 col-sm-6">
-                                            <div class="discount-info">
-                                                <h1 class="text-dark-red">Discount 50%</h1>
-                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed does eiusmodes tempor incididunt ut labore labore et labore et dolore magna aliqua. Ut enim ad minim venim.</p>
-                                                <a class="button-2 text-dark-red text-uppercase" href="#">GET DISCOUNT <i class="zmdi zmdi-long-arrow-right"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- single-discount-product end -->
+                                <!-- single-discount-product end -->
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -227,15 +187,19 @@
                 <div class="col-lg-4 col-md-4">
                     <div class="up-comming-product">
                         <div class="up-comming-img">
-                            <a href="#"><img src="{{ asset('hurst/img/product/up-comming.jpg') }}" alt="" /></a>
+                            <a href="#"><img src="{{ env('RAZEN_URL') }}storage/{{json_decode($product_discount[0]->gambar)[0]}}" alt="" /></a>
                         </div>
                         <div class="up-comming-info text-center">
                             <div class="up-comming-brief">
-                                <h4 class="post-title"><a href="#">Indoor Furniture</a></h4>
-                                <h4 class="comming-pro-price">$ 200.00</h4>
+                                <h4 class="post-title"><a href="#">{{$product_discount[0]->nama}}</a></h4>
+                                <h4 class="comming-pro-price">Rp. {{number_format($product_discount[0]->harga_diskon,2, ',','.')}} </h4>
                             </div>
                             <div class="count-down">
-                                <div data-countdown="2022/10/08"></div>
+                                @if ($product_discount[0]->end_date_diskon)
+                                    <div data-countdown="{{date("Y/m/d", strtotime($product_discount[0]->end_date_diskon))}}"></div>
+                                @else
+                                    <h4 class="post-title">SELAMANYA</h4>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -259,264 +223,58 @@
                 <div class="col-lg-12  text-center">
                     <!-- Nav tabs -->
                     <ul class="tab-menu nav clearfix">
-                        <li><a class="active" href="#new-arrivals" data-bs-toggle="tab">New Arrivals</a></li>
-                        <li><a href="#best-seller"  data-bs-toggle="tab">Best Seller </a></li>
-                        <li><a href="#most-view" data-bs-toggle="tab">Most View </a></li>
-                        <li><a href="#discounts" data-bs-toggle="tab">Discounts</a></li>
+                        @foreach ($product_koleksi as $item)
+                            <li><a @if($loop->first) class="active" @endif href="#{{$item->slug}}" data-bs-toggle="tab">{{$item->nama_koleksi}}</a></li>
+                        @endforeach
                     </ul>
                 </div>
                 <div class="col-lg-12">
                     <!-- Tab panes -->
                     <div class="tab-content">
-                        <div class="tab-pane active" id="new-arrivals">
-                            <div class="row">
-                                <!-- Single-product start -->
-                                <div class="col-xl-3 col-lg-4 col-md-6">
-                                    <div class="single-product">
-                                        <div class="product-img">
-                                            <span class="pro-label new-label">new</span>
-                                            <span class="pro-price-2">$ 56.20</span>
-                                            <a href="single-product.html"><img src="{{ asset('hurst/img/product/6.jpg') }}" alt="" /></a>
+                        @foreach ($product_koleksi as $item)
+                            <div class="tab-pane @if($loop->first) active @endif" id="{{$item->slug}}">
+                                <div class="row">
+                                    @foreach ($item->data as $produk)
+                                        <div class="col-xl-3 col-lg-4 col-md-6">
+                                            <div class="single-product">
+                                                <div class="product-img">
+                                                    <span class="pro-label new-label">{{$produk->label[0]->nama}}</span>
+                                                    <span class="pro-price-2">Rp. {{number_format($produk->harga, 2, ',', '.')}}</span>
+                                                    <a href="{{route('produk-detail', ['id' => $produk->id])}}"><img src="{{ env('RAZEN_URL') }}storage/{{json_decode($produk->gambar)[0]}}" alt="" /></a>
+                                                </div>
+                                                <div class="product-info clearfix text-center">
+                                                    <div class="fix">
+                                                        <h4 class="post-title"><a href="{{route('produk-detail', ['id' => $produk->id])}}">{{$produk->nama}}</a></h4>
+                                                    </div>
+                                                    {{-- <div class="fix">
+                                                        <span class="pro-rating">
+                                                            <a href="#"><i class="zmdi zmdi-star"></i></a>
+                                                            <a href="#"><i class="zmdi zmdi-star"></i></a>
+                                                            <a href="#"><i class="zmdi zmdi-star"></i></a>
+                                                            <a href="#"><i class="zmdi zmdi-star-half"></i></a>
+                                                            <a href="#"><i class="zmdi zmdi-star-half"></i></a>
+                                                        </span>
+                                                    </div> --}}
+                                                    <div class="product-action clearfix" style="text-align: center !important;">
+                                                        <a href="#" data-bs-toggle="modal"
+                                                            data-bs-target="#productModal"
+                                                            id="quick_view_btn"
+                                                            title="Quick View"
+                                                            data-nama="{{$produk->nama}}"
+                                                            data-img="{{ env('RAZEN_URL') }}storage/{{json_decode($produk->gambar)[0]}}"
+                                                            data-harga="Rp. {{number_format($produk->harga, 2, ',', '.')}}"
+                                                            data-link="{{preg_replace('#/+#','/',env('RAZEN_URL').$produk->link)}}"
+                                                            data-deskripsi="{{$produk->deskripsi}}"
+                                                            ><i class="zmdi zmdi-zoom-in"></i></a>
+                                                        <a href="{{preg_replace('#/+#','/',env('RAZEN_URL').$produk->link)}}" data-bs-toggle="tooltip" data-placement="top" title="Buka Toko" target="blank"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div class="product-info clearfix text-center">
-                                            <div class="fix">
-                                                <h4 class="post-title"><a href="#">dummy Product name</a></h4>
-                                            </div>
-                                            <div class="fix">
-                                                <span class="pro-rating">
-                                                    <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star-half"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star-half"></i></a>
-                                                </span>
-                                            </div>
-                                            <div class="product-action clearfix">
-                                                <a href="wishlist.html" data-bs-toggle="tooltip" data-placement="top" title="Wishlist"><i class="zmdi zmdi-favorite-outline"></i></a>
-                                                <a href="#" data-bs-toggle="modal"  data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>
-                                                <a href="#" data-bs-toggle="tooltip" data-placement="top" title="Compare"><i class="zmdi zmdi-refresh"></i></a>
-                                                <a href="cart.html" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    @endforeach
                                 </div>
-                                <!-- Single-product end -->
-                                <!-- Single-product start -->
-                                <div class="col-xl-3 col-lg-4 col-md-6">
-                                    <div class="single-product">
-                                        <div class="product-img">
-                                            <span class="pro-label sale-label">sale</span>
-                                            <span class="pro-price-2">$ 56.20</span>
-                                            <a href="single-product.html"><img src="{{ asset('hurst/img/product/3.jpg') }}" alt="" /></a>
-                                        </div>
-                                        <div class="product-info clearfix text-center">
-                                            <div class="fix">
-                                                <h4 class="post-title"><a href="#">dummy Product name</a></h4>
-                                            </div>
-                                            <div class="fix">
-                                                <span class="pro-rating">
-                                                    <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star-half"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star-half"></i></a>
-                                                </span>
-                                            </div>
-                                            <div class="product-action clearfix">
-                                                <a href="wishlist.html" data-bs-toggle="tooltip" data-placement="top" title="Wishlist"><i class="zmdi zmdi-favorite-outline"></i></a>
-                                                <a href="#" data-bs-toggle="modal"  data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>
-                                                <a href="#" data-bs-toggle="tooltip" data-placement="top" title="Compare"><i class="zmdi zmdi-refresh"></i></a>
-                                                <a href="cart.html" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Single-product end -->
-                                <!-- Single-product start -->
-                                <div class="col-xl-3 col-lg-4 col-md-6">
-                                    <div class="single-product">
-                                        <div class="product-img">
-                                            <span class="pro-price-2">$ 56.20</span>
-                                            <a href="single-product.html"><img src="{{ asset('hurst/img/product/7.jpg') }}" alt="" /></a>
-                                        </div>
-                                        <div class="product-info clearfix text-center">
-                                            <div class="fix">
-                                                <h4 class="post-title"><a href="#">dummy Product name</a></h4>
-                                            </div>
-                                            <div class="fix">
-                                                <span class="pro-rating">
-                                                    <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star-half"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star-half"></i></a>
-                                                </span>
-                                            </div>
-                                            <div class="product-action clearfix">
-                                                <a href="wishlist.html" data-bs-toggle="tooltip" data-placement="top" title="Wishlist"><i class="zmdi zmdi-favorite-outline"></i></a>
-                                                <a href="#" data-bs-toggle="modal"  data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>
-                                                <a href="#" data-bs-toggle="tooltip" data-placement="top" title="Compare"><i class="zmdi zmdi-refresh"></i></a>
-                                                <a href="cart.html" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Single-product end -->
-                                <!-- Single-product start -->
-                                <div class="col-xl-3 col-lg-4 col-md-6">
-                                    <div class="single-product">
-                                        <div class="product-img">
-                                            <span class="pro-label new-label">new</span>
-                                            <span class="pro-price-2">$ 56.20</span>
-                                            <a href="single-product.html"><img src="{{ asset('hurst/img/product/2.jpg') }}" alt="" /></a>
-                                        </div>
-                                        <div class="product-info clearfix text-center">
-                                            <div class="fix">
-                                                <h4 class="post-title"><a href="#">dummy Product name</a></h4>
-                                            </div>
-                                            <div class="fix">
-                                                <span class="pro-rating">
-                                                    <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star-half"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star-half"></i></a>
-                                                </span>
-                                            </div>
-                                            <div class="product-action clearfix">
-                                                <a href="wishlist.html" data-bs-toggle="tooltip" data-placement="top" title="Wishlist"><i class="zmdi zmdi-favorite-outline"></i></a>
-                                                <a href="#" data-bs-toggle="modal"  data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>
-                                                <a href="#" data-bs-toggle="tooltip" data-placement="top" title="Compare"><i class="zmdi zmdi-refresh"></i></a>
-                                                <a href="cart.html" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Single-product end -->
-                                <!-- Single-product start -->
-                                <div class="col-xl-3 col-lg-4 col-md-6">
-                                    <div class="single-product">
-                                        <div class="product-img">
-                                            <span class="pro-label sale-label">sale</span>
-                                            <span class="pro-price-2">$ 56.20</span>
-                                            <a href="single-product.html"><img src="{{ asset('hurst/img/product/10.jpg') }}"  alt="" /></a>
-                                        </div>
-                                        <div class="product-info clearfix text-center">
-                                            <div class="fix">
-                                                <h4 class="post-title"><a href="#">dummy Product name</a></h4>
-                                            </div>
-                                            <div class="fix">
-                                                <span class="pro-rating">
-                                                    <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star-half"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star-half"></i></a>
-                                                </span>
-                                            </div>
-                                            <div class="product-action clearfix">
-                                                <a href="wishlist.html" data-bs-toggle="tooltip" data-placement="top" title="Wishlist"><i class="zmdi zmdi-favorite-outline"></i></a>
-                                                <a href="#" data-bs-toggle="modal"  data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>
-                                                <a href="#" data-bs-toggle="tooltip" data-placement="top" title="Compare"><i class="zmdi zmdi-refresh"></i></a>
-                                                <a href="cart.html" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Single-product end -->
-                                <!-- Single-product start -->
-                                <div class="col-xl-3 col-lg-4 col-md-6">
-                                    <div class="single-product">
-                                        <div class="product-img">
-                                            <span class="pro-price-2">$ 56.20</span>
-                                            <a href="single-product.html"><img src="{{ asset('hurst/img/product/8.jpg') }}" alt="" /></a>
-                                        </div>
-                                        <div class="product-info clearfix text-center">
-                                            <div class="fix">
-                                                <h4 class="post-title"><a href="#">dummy Product name</a></h4>
-                                            </div>
-                                            <div class="fix">
-                                                <span class="pro-rating">
-                                                    <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star-half"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star-half"></i></a>
-                                                </span>
-                                            </div>
-                                            <div class="product-action clearfix">
-                                                <a href="wishlist.html" data-bs-toggle="tooltip" data-placement="top" title="Wishlist"><i class="zmdi zmdi-favorite-outline"></i></a>
-                                                <a href="#" data-bs-toggle="modal"  data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>
-                                                <a href="#" data-bs-toggle="tooltip" data-placement="top" title="Compare"><i class="zmdi zmdi-refresh"></i></a>
-                                                <a href="cart.html" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Single-product end -->
-                                <!-- Single-product start -->
-                                <div class="col-xl-3 col-lg-4 col-md-6">
-                                    <div class="single-product">
-                                        <div class="product-img">
-                                            <span class="pro-label new-label">new</span>
-                                            <span class="pro-price-2">$ 56.20</span>
-                                            <a href="single-product.html"><img src="{{ asset('hurst/img/product/11.jpg') }}" alt="" /></a>
-                                        </div>
-                                        <div class="product-info clearfix text-center">
-                                            <div class="fix">
-                                                <h4 class="post-title"><a href="#">dummy Product name</a></h4>
-                                            </div>
-                                            <div class="fix">
-                                                <span class="pro-rating">
-                                                    <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star-half"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star-half"></i></a>
-                                                </span>
-                                            </div>
-                                            <div class="product-action clearfix">
-                                                <a href="wishlist.html" data-bs-toggle="tooltip" data-placement="top" title="Wishlist"><i class="zmdi zmdi-favorite-outline"></i></a>
-                                                <a href="#" data-bs-toggle="modal"  data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>
-                                                <a href="#" data-bs-toggle="tooltip" data-placement="top" title="Compare"><i class="zmdi zmdi-refresh"></i></a>
-                                                <a href="cart.html" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Single-product end -->
-                                <!-- Single-product start -->
-                                <div class="col-xl-3 col-lg-4 col-md-6">
-                                    <div class="single-product">
-                                        <div class="product-img">
-                                            <span class="pro-price-2">$ 56.20</span>
-                                            <a href="single-product.html"><img src="{{ asset('hurst/img/product/1.jpg') }}" alt="" /></a>
-                                        </div>
-                                        <div class="product-info clearfix text-center">
-                                            <div class="fix">
-                                                <h4 class="post-title"><a href="#">dummy Product name</a></h4>
-                                            </div>
-                                            <div class="fix">
-                                                <span class="pro-rating">
-                                                    <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star-half"></i></a>
-                                                    <a href="#"><i class="zmdi zmdi-star-half"></i></a>
-                                                </span>
-                                            </div>
-                                            <div class="product-action clearfix">
-                                                <a href="wishlist.html" data-bs-toggle="tooltip" data-placement="top" title="Wishlist"><i class="zmdi zmdi-favorite-outline"></i></a>
-                                                <a href="#" data-bs-toggle="modal"  data-bs-target="#productModal" title="Quick View"><i class="zmdi zmdi-zoom-in"></i></a>
-                                                <a href="#" data-bs-toggle="tooltip" data-placement="top" title="Compare"><i class="zmdi zmdi-refresh"></i></a>
-                                                <a href="cart.html" data-bs-toggle="tooltip" data-placement="top" title="Add To Cart"><i class="zmdi zmdi-shopping-cart-plus"></i></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <!-- Single-product end -->
                             </div>
-                        </div>
+                        @endforeach
                         <div class="tab-pane" id="best-seller">
                             <div class="row">
                                 <!-- Single-product start -->

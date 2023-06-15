@@ -22,9 +22,21 @@ class HomeController extends Controller
 
         $get_product_featured = $guzzleClient->get(env('RAZEN_URL').'api/product/razen-style/produk-featured');
         $product_featureds = json_decode($get_product_featured->getBody())->data;
+
+        $get_product_new = $guzzleClient->get(env('RAZEN_URL').'api/product/razen-style/produk-new');
+        $product_new = json_decode($get_product_new->getBody())->data;
+
+        $get_product_discount = $guzzleClient->get(env('RAZEN_URL').'api/product/razen-style/produk-discount');
+        $product_discount = json_decode($get_product_discount->getBody())->data;
+
+        $get_product_koleksi = $guzzleClient->get(env('RAZEN_URL').'api/product/razen-style/produk-koleksi');
+        $product_koleksi = json_decode($get_product_koleksi->getBody())->data;
         return view('landing-page.beranda.index', [
             'brands' => $brands,
-            'product_featureds' => $product_featureds
+            'product_featureds' => $product_featureds,
+            'product_new' => $product_new,
+            'product_discount' => $product_discount,
+            'product_koleksi' => $product_koleksi
         ]);
     }
 
@@ -38,7 +50,13 @@ class HomeController extends Controller
 
     public function produk()
     {
-        return view('landing-page.produk.index');
+        $guzzleClient = new GuzzleHttpClient();
+
+        $get_product = $guzzleClient->get(env('RAZEN_URL').'api/product/razen-style/produk');
+        $products = json_decode($get_product->getBody())->data;
+        return view('landing-page.produk.index', [
+            'products' => $products
+        ]);
     }
 
     public function kontak()

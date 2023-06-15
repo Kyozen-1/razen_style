@@ -35,6 +35,7 @@
 
         $beranda = LandingPageBeranda::first();
 
+        $section_2 = json_decode($beranda->section_2, true);
         $section_3 = json_decode($beranda->section_3, true);
         $section_5 = json_decode($beranda->section_5, true);
         $section_6 = json_decode($beranda->section_6, true);
@@ -188,6 +189,49 @@
     </div>
 
     {{-- Section 1 End --}}
+
+    {{-- Section 2 Start --}}
+
+    <div class="card mb-5">
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-6 mb-3">
+                    <h2 class="small-title">Edit Section 2</h2>
+                </div>
+                <div class="col-6 mb-3" style="text-align: right;">
+                    <a href="{{ route('beranda') }}#banner-area" class="btn btn-icon waves-effect waves-light btn-secondary" target="blank"><i class="fas fa-pager"></i> Preview</a>
+                </div>
+                <div class="col-12">
+                    <img src="{{ asset('images/landing-page/beranda/section_2.png') }}" alt="" class="img-fluid rounded">
+                </div>
+            </div>
+            <form action="{{ route('razen-style.landing-page.beranda.store.section-2') }}" novalidate="novalidate" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="row">
+                    <div class="col-12">
+                        <div class="mb-3 position-relative form-group">
+                            <label for="" class="form-label">Gambar</label>
+                            @if ($section_2)
+                            <input type="file" class="dropify" name="gambar" data-height="300" data-allowed-file-extensions="png jpg jpeg" data-default-file="{{ asset('images/landing-page/beranda/'.$section_2['gambar']) }}" data-show-errors="true" required>
+                            @else
+                            <input type="file" class="dropify" name="gambar" data-height="300" data-allowed-file-extensions="png jpg jpeg" data-show-errors="true" required>
+                            @endif
+                        </div>
+
+                        <div class="mb-3 position-relative form-group">
+                            <label for="" class="form-label">Judul</label>
+                            <input type="text" class="form-control" name="judul" value="{{$section_2?$section_2['judul']:'' }}" required>
+                        </div>
+                    </div>
+                    <div class="col-12" style="text-align: right">
+                        <button type="submit" class="btn btn-primary mb-0">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {{-- Section 2 End --}}
 
     {{-- Section 3 Start --}}
 

@@ -54,6 +54,8 @@ Route::prefix('razen-style')->group(function(){
             Route::post('/update',[BerandaController::class, 'update'])->name('razen-style.landing-page.beranda.update');
             Route::get('/destroy/{id}',[BerandaController::class, 'destroy'])->name('razen-style.landing-page.beranda.destroy');
 
+            Route::post('/store/section-2', [BerandaController::class, 'store_section_2'])->name('razen-style.landing-page.beranda.store.section-2');
+
             Route::post('/store/section-3', [BerandaController::class, 'store_section_3'])->name('razen-style.landing-page.beranda.store.section-3');
 
             Route::post('/store/section-5', [BerandaController::class, 'store_section_5'])->name('razen-style.landing-page.beranda.store.section-5');

@@ -173,6 +173,57 @@ class BerandaController extends Controller
         $banner->delete();
     }
 
+    public function store_section_2(Request $request)
+    {
+        $cek = LandingPageBeranda::first();
+        if($cek)
+        {
+            $beranda = LandingPageBeranda::find($cek->id);
+            if($beranda->section_2)
+            {
+                $get_section_2 = json_decode($beranda->section_2, true);
+
+                if ($request->gambar) {
+                    $gambarName = $get_section_2['gambar'];
+                    File::delete(public_path('images/landing-page/beranda/'.$gambarName));
+
+                    $gambarExtension = $request->gambar->extension();
+                    $gambarName =  uniqid().'-'.date("ymd").'.'.$gambarExtension;
+                    $gambar = Image::make($request->gambar);
+                    $gambarSize = public_path('images/landing-page/beranda/'.$gambarName);
+                    $gambar->save($gambarSize, 100);
+                } else {
+                    $gambarName = $get_section_2['gambar'];
+                }
+            } else {
+                $gambarExtension = $request->gambar->extension();
+                $gambarName =  uniqid().'-'.date("ymd").'.'.$gambarExtension;
+                $gambar = Image::make($request->gambar);
+                $gambarSize = public_path('images/landing-page/beranda/'.$gambarName);
+                $gambar->save($gambarSize, 100);
+            }
+        } else {
+            $beranda = new LandingPageBeranda;
+
+            $gambarExtension = $request->gambar->extension();
+            $gambarName =  uniqid().'-'.date("ymd").'.'.$gambarExtension;
+            $gambar = Image::make($request->gambar);
+            $gambarSize = public_path('images/landing-page/beranda/'.$gambarName);
+            $gambar->save($gambarSize, 100);
+        }
+
+        $array = [
+            'judul' => $request->judul,
+            'gambar' => $gambarName
+        ];
+
+        $beranda->section_2 = json_encode($array);
+        $beranda->save();
+
+        Alert::success('Berhasil', 'Berhasil Merubah Tampilan Section 2');
+        return redirect()->route('razen-style.landing-page.beranda.index');
+    }
+
     public function store_section_3(Request $request)
     {
         $errors = Validator::make($request->all(), [
