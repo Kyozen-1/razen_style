@@ -149,6 +149,7 @@
     </div>
     <!-- PRODUCT-AREA END -->
     <!-- DISCOUNT-PRODUCT START -->
+    @if ($product_discount)
     <div class="discount-product-area discount-2" id="discount-product-area">
         <div class="container">
             <div class="row">
@@ -208,6 +209,7 @@
             </div>
         </div>
     </div>
+    @endif
     <!-- DISCOUNT-PRODUCT END -->
     <!-- PURCHASE-ONLINE-AREA START -->
     <div class="purchase-online-area pt-80 product-style-2" id="purchase-online-area">

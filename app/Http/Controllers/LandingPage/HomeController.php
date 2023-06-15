@@ -92,4 +92,9 @@ class HomeController extends Controller
         Alert::success('Berhasil', 'Berhasil Mengirimkan pesan');
         return redirect()->route('kontak');
     }
+
+    public function produk_detail($id)
+    {
+        return view('landing-page.produk.detail');
+    }
 }
